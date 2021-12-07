@@ -1,0 +1,15 @@
+﻿define
+	MEASURE 'Attendance (daily)'[Present YTD (Simple)] = 
+		CALCULATE(
+			SUM('Attendance (Daily)'[Is Present] ),
+			DATESYTD('Calendar'[Date], "8/31")
+			)
+	var __DS0Core = 
+		SUMMARIZECOLUMNS(
+			'Calendar'[School Year],
+			School[School Number],
+			Student[Student Number],
+			TREATAS( { "11/17/2021" },  'Calendar'[Date] ),
+			"Present YTD (Simple)", 'Attendance (daily)'[Present YTD (Simple)]
+	)
+EVALUATE __DS0Core
